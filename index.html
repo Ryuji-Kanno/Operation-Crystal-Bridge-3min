@@ -10,20 +10,18 @@
     <style>
         body { font-family: 'Noto Sans JP', sans-serif; }
         
-        /* Chart Container Styling - MANDATORY */
         .chart-container {
             position: relative;
             width: 100%;
-            max-width: 800px; /* Max width to prevent stretching */
-            height: 400px; /* Base height */
+            max-width: 800px;
+            height: 450px;
             margin-left: auto;
             margin-right: auto;
         }
         @media (max-width: 640px) {
-            .chart-container { height: 300px; }
+            .chart-container { height: 350px; }
         }
 
-        /* Custom Scrollbar */
         ::-webkit-scrollbar { width: 6px; }
         ::-webkit-scrollbar-track { background: #f5f5f4; }
         ::-webkit-scrollbar-thumb { background: #d6d3d1; border-radius: 3px; }
@@ -33,20 +31,6 @@
         @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
     </style>
     <!-- Chosen Palette: Takibi Stone (Warm Neutrals with Amber/Fire Accents) -->
-    <!-- Application Structure Plan: 
-         Designed as a "Live Session" flow.
-         1. Tuning: Interactive Chart.js for Emotional Level.
-         2. Review: Inputs for Gratitude/Reflection.
-         3. Creation: Pre-filled inputs based on 'daily_rhythm_takibi.md' for Top 3 & Schedule.
-         4. Export: Markdown generator.
-         Rationale: Mirrors the conversational "Jazz Session" style requested, moving from feeling (tuning) to logic (planning).
-    -->
-    <!-- Visualization & Content Choices:
-         1. Emotional Log -> Interactive Bar Chart -> Click to select state -> Visualizes frequency hierarchy.
-         2. Rhythm Schedule -> CSS Grid Timeline -> Visualizes the 4 key blocks (Magician, Warrior, Craftsman, Visionary).
-         3. Titan Prompts -> Dynamic DOM updates -> Reinforces the "Partner" persona.
-    -->
-    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
 </head>
 <body class="bg-stone-100 text-stone-800 h-screen flex flex-col overflow-hidden">
 
@@ -80,31 +64,30 @@
                 <h2 class="text-xs font-bold text-stone-400 uppercase tracking-wider mb-4">Setlist</h2>
                 <div class="space-y-1">
                     <button onclick="navTo(0)" class="nav-btn w-full text-left px-4 py-3 rounded-lg text-sm font-medium transition-colors bg-white shadow-sm text-amber-700 border-l-4 border-amber-500" data-step="0">
-                        1. 📡 Tuning
+                        1. 📡 チューニング
                     </button>
                     <button onclick="navTo(1)" class="nav-btn w-full text-left px-4 py-3 rounded-lg text-sm font-medium text-stone-500 hover:bg-white hover:text-stone-700 transition-colors" data-step="1">
-                        2. 🙏 The Gratitude
+                        2. 🙏 感謝のジャム
                     </button>
                     <button onclick="navTo(2)" class="nav-btn w-full text-left px-4 py-3 rounded-lg text-sm font-medium text-stone-500 hover:bg-white hover:text-stone-700 transition-colors" data-step="2">
-                        3. ⏪ Review Jam
+                        3. ⏪ レビュー
                     </button>
                     <button onclick="navTo(3)" class="nav-btn w-full text-left px-4 py-3 rounded-lg text-sm font-medium text-stone-500 hover:bg-white hover:text-stone-700 transition-colors" data-step="3">
-                        4. 🚀 Future Groove
+                        4. 🚀 次週のグルーヴ
                     </button>
                     <button onclick="navTo(4)" class="nav-btn w-full text-left px-4 py-3 rounded-lg text-sm font-medium text-stone-500 hover:bg-white hover:text-stone-700 transition-colors" data-step="4">
-                        5. 💾 Flight Log
+                        5. 💾 フライトログ
                     </button>
                 </div>
             </div>
 
-            <!-- Titan Context -->
             <div class="mt-auto p-6 bg-stone-200 border-t border-stone-300">
                 <div class="flex items-center space-x-2 mb-2">
                     <span class="text-xl">🤖</span>
                     <h3 class="text-sm font-bold text-stone-800">Titan's Riff</h3>
                 </div>
                 <p id="titan-msg" class="text-xs text-stone-600 leading-relaxed italic font-serif">
-                    "Hey Rikki! 準備はいいかい？ まずはチューニングだ。今の君のエネルギーレベルを教えてくれ。"
+                    "Hey Rikki! チューニングを始めよう。今の周波数は日本語でどう表現するのがしっくりくるかな？"
                 </p>
             </div>
         </nav>
@@ -117,8 +100,8 @@
                 <section id="step-0" class="step-section fade-in">
                     <div class="bg-white rounded-2xl shadow-sm border border-stone-200 p-8 mb-6">
                         <div class="mb-6">
-                            <h2 class="text-2xl font-bold text-stone-800">Phase 1: Frequency Tuning</h2>
-                            <p class="text-stone-500 mt-2 text-sm">現在の感情レベルをタップして選択してください。</p>
+                            <h2 class="text-2xl font-bold text-stone-800">Phase 1: 周波数のチューニング</h2>
+                            <p class="text-stone-500 mt-2 text-sm">現在の感情レベルをタップして選択してください。今の君のステートは？</p>
                         </div>
                         
                         <div class="bg-stone-50 rounded-xl p-4 border border-stone-100 mb-6">
@@ -138,7 +121,7 @@
                     </div>
                     <div class="flex justify-end">
                         <button onclick="nextStep()" class="bg-stone-900 text-white px-8 py-3 rounded-full font-bold hover:bg-stone-800 transition-transform hover:scale-105 shadow-lg">
-                            Next: Gratitude →
+                            次へ: 感謝のジャム →
                         </button>
                     </div>
                 </section>
@@ -147,28 +130,28 @@
                 <section id="step-1" class="step-section hidden fade-in">
                     <div class="bg-white rounded-2xl shadow-sm border border-stone-200 p-8 mb-6">
                         <div class="mb-6">
-                            <h2 class="text-2xl font-bold text-stone-800">Phase 2: The Gratitude Jam</h2>
-                            <p class="text-stone-500 mt-2 text-sm">今週のハイライトを3つ、直感で書き出そう。</p>
+                            <h2 class="text-2xl font-bold text-stone-800">Phase 2: 感謝のジャムセッション</h2>
+                            <p class="text-stone-500 mt-2 text-sm">今週の「最高だったこと」を3つ書き出そう。</p>
                         </div>
                         <div class="space-y-4">
                             <div class="flex items-center space-x-4">
                                 <span class="text-amber-500 font-bold text-xl font-mono">01</span>
-                                <input type="text" id="gratitude-1" class="flex-1 border-b-2 border-stone-200 focus:border-amber-500 outline-none py-2 text-lg bg-transparent transition-colors placeholder-stone-300" placeholder="Spark of joy...">
+                                <input type="text" id="gratitude-1" class="flex-1 border-b-2 border-stone-200 focus:border-amber-500 outline-none py-2 text-lg bg-transparent transition-colors placeholder-stone-300" placeholder="何に感謝を感じる？">
                             </div>
                             <div class="flex items-center space-x-4">
                                 <span class="text-amber-500 font-bold text-xl font-mono">02</span>
-                                <input type="text" id="gratitude-2" class="flex-1 border-b-2 border-stone-200 focus:border-amber-500 outline-none py-2 text-lg bg-transparent transition-colors placeholder-stone-300" placeholder="Connection made...">
+                                <input type="text" id="gratitude-2" class="flex-1 border-b-2 border-stone-200 focus:border-amber-500 outline-none py-2 text-lg bg-transparent transition-colors placeholder-stone-300" placeholder="誰との繋がりを感じた？">
                             </div>
                             <div class="flex items-center space-x-4">
                                 <span class="text-amber-500 font-bold text-xl font-mono">03</span>
-                                <input type="text" id="gratitude-3" class="flex-1 border-b-2 border-stone-200 focus:border-amber-500 outline-none py-2 text-lg bg-transparent transition-colors placeholder-stone-300" placeholder="Small win...">
+                                <input type="text" id="gratitude-3" class="flex-1 border-b-2 border-stone-200 focus:border-amber-500 outline-none py-2 text-lg bg-transparent transition-colors placeholder-stone-300" placeholder="自分を誇りに思えることは？">
                             </div>
                         </div>
                     </div>
                     <div class="flex justify-between">
-                        <button onclick="prevStep()" class="text-stone-500 font-medium hover:text-stone-900">← Back</button>
+                        <button onclick="prevStep()" class="text-stone-500 font-medium hover:text-stone-900">← 戻る</button>
                         <button onclick="nextStep()" class="bg-stone-900 text-white px-8 py-3 rounded-full font-bold hover:bg-stone-800 transition-transform hover:scale-105 shadow-lg">
-                            Next: Review →
+                            次へ: レビュー →
                         </button>
                     </div>
                 </section>
@@ -176,83 +159,67 @@
                 <!-- STEP 2: REVIEW -->
                 <section id="step-2" class="step-section hidden fade-in">
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-                        <!-- Success -->
                         <div class="bg-white rounded-2xl shadow-sm border border-stone-200 p-6">
                             <div class="flex items-center mb-4">
                                 <span class="text-2xl mr-2">🎉</span>
-                                <h3 class="font-bold text-stone-800">Success Factor</h3>
+                                <h3 class="font-bold text-stone-800">成功の鍵 (Success Factor)</h3>
                             </div>
-                            <textarea id="review-success" rows="4" class="w-full bg-stone-50 rounded-lg p-3 text-sm border border-stone-200 focus:ring-2 focus:ring-amber-500 focus:outline-none" placeholder="なぜうまくいった？成功のパターンは？"></textarea>
+                            <textarea id="review-success" rows="4" class="w-full bg-stone-50 rounded-lg p-3 text-sm border border-stone-200 focus:ring-2 focus:ring-amber-500 focus:outline-none" placeholder="今週の成功を再現するには何が必要？"></textarea>
                         </div>
-                        <!-- Challenge -->
                         <div class="bg-white rounded-2xl shadow-sm border border-stone-200 p-6">
                             <div class="flex items-center mb-4">
                                 <span class="text-2xl mr-2">🏔️</span>
-                                <h3 class="font-bold text-stone-800">Challenge & Lesson</h3>
+                                <h3 class="font-bold text-stone-800">チャレンジと学び</h3>
                             </div>
-                            <textarea id="review-challenge" rows="4" class="w-full bg-stone-50 rounded-lg p-3 text-sm border border-stone-200 focus:ring-2 focus:ring-amber-500 focus:outline-none" placeholder="壁は何だった？そこからの学びは？"></textarea>
+                            <textarea id="review-challenge" rows="4" class="w-full bg-stone-50 rounded-lg p-3 text-sm border border-stone-200 focus:ring-2 focus:ring-amber-500 focus:outline-none" placeholder="壁をどう乗り越えた？次へのレッスンは？"></textarea>
                         </div>
                     </div>
                     
-                    <!-- Identity Shift -->
                     <div class="bg-white rounded-2xl shadow-sm border border-stone-200 p-6 mb-6">
                         <div class="flex items-center mb-4">
                             <span class="text-2xl mr-2">🦋</span>
                             <h3 class="font-bold text-stone-800">Identity Shift (Be - Do - Have)</h3>
                         </div>
-                        <p class="text-xs text-stone-500 mb-2">理想の自分（King/Warrior/Magician/Lover）なら、来週どう振る舞う？</p>
-                        <input type="text" id="identity-text" class="w-full border-b-2 border-stone-200 focus:border-amber-500 outline-none py-2 text-lg bg-transparent" placeholder="私は [　　] として生きる。">
+                        <p class="text-xs text-stone-500 mb-2">「未来の自分」なら、来週をどう過ごす？</p>
+                        <input type="text" id="identity-text" class="w-full border-b-2 border-stone-200 focus:border-amber-500 outline-none py-2 text-lg bg-transparent" placeholder="私は [　　] として、この週を生きる。">
                     </div>
 
                     <div class="flex justify-between">
-                        <button onclick="prevStep()" class="text-stone-500 font-medium hover:text-stone-900">← Back</button>
+                        <button onclick="prevStep()" class="text-stone-500 font-medium hover:text-stone-900">← 戻る</button>
                         <button onclick="nextStep()" class="bg-stone-900 text-white px-8 py-3 rounded-full font-bold hover:bg-stone-800 transition-transform hover:scale-105 shadow-lg">
-                            Next: The Plan →
+                            次へ: 計画 →
                         </button>
                     </div>
                 </section>
 
-                <!-- STEP 3: PLANNING (PRE-FILLED) -->
+                <!-- STEP 3: PLANNING -->
                 <section id="step-3" class="step-section hidden fade-in">
                     <div class="bg-stone-900 text-stone-100 rounded-2xl shadow-lg p-8 mb-6 relative overflow-hidden">
                         <div class="absolute top-0 right-0 p-4 opacity-10 text-9xl font-black select-none">NEO</div>
                         <div class="relative z-10">
                             <h2 class="text-2xl font-bold text-white mb-6 flex items-center">
-                                <span class="mr-2">🔥</span> Takibi Daily Rhythm
+                                <span class="mr-2">🔥</span> 焚き火のリズム (Daily Rhythm)
                             </h2>
-                            <!-- Rhythm Visualization -->
-                            <div class="grid grid-cols-1 gap-4 mb-8">
-                                <div class="bg-stone-800 p-4 rounded-lg border-l-4 border-purple-500 flex flex-col sm:flex-row sm:items-center">
-                                    <div class="font-mono text-purple-400 font-bold w-32">05:00-08:00</div>
-                                    <div class="flex-1">
-                                        <h4 class="font-bold text-white">Magician & Warrior</h4>
-                                        <p class="text-xs text-stone-400">スクリプト最適化・型作り (Titan共創)</p>
-                                    </div>
+                            <div class="grid grid-cols-1 gap-4 mb-8 text-sm">
+                                <div class="bg-stone-800 p-3 rounded-lg border-l-4 border-purple-500 flex justify-between">
+                                    <span class="font-mono text-purple-400">05:00-08:00</span>
+                                    <span class="font-bold text-white">Magician (型作り/最適化)</span>
                                 </div>
-                                <div class="bg-stone-800 p-4 rounded-lg border-l-4 border-red-500 flex flex-col sm:flex-row sm:items-center">
-                                    <div class="font-mono text-red-400 font-bold w-32">08:00-09:00</div>
-                                    <div class="flex-1">
-                                        <h4 class="font-bold text-white">Warrior (Recording)</h4>
-                                        <p class="text-xs text-stone-400">音声収録 (2本) - 魂を込める</p>
-                                    </div>
+                                <div class="bg-stone-800 p-3 rounded-lg border-l-4 border-red-500 flex justify-between">
+                                    <span class="font-mono text-red-400">08:00-09:00</span>
+                                    <span class="font-bold text-white">Warrior (音声収録 2本)</span>
                                 </div>
-                                <div class="bg-stone-800 p-4 rounded-lg border-l-4 border-amber-500 flex flex-col sm:flex-row sm:items-center">
-                                    <div class="font-mono text-amber-400 font-bold w-32">20:00-22:00</div>
-                                    <div class="flex-1">
-                                        <h4 class="font-bold text-white">Craftsman (Edit)</h4>
-                                        <p class="text-xs text-stone-400">動画編集・YouTube投稿</p>
-                                    </div>
+                                <div class="bg-stone-800 p-3 rounded-lg border-l-4 border-amber-500 flex justify-between">
+                                    <span class="font-mono text-amber-400">20:00-22:00</span>
+                                    <span class="font-bold text-white">Craftsman (動画編集)</span>
                                 </div>
-                                <div class="bg-stone-800 p-4 rounded-lg border-l-4 border-blue-400 flex flex-col sm:flex-row sm:items-center">
-                                    <div class="font-mono text-blue-400 font-bold w-32">22:00-23:00</div>
-                                    <div class="flex-1">
-                                        <h4 class="font-bold text-white">Visionary (Neo)</h4>
-                                        <p class="text-xs text-stone-400">「焚き火の教室Neo」構想・設計 (Cursor)</p>
-                                    </div>
+                                <div class="bg-stone-800 p-3 rounded-lg border-l-4 border-blue-400 flex justify-between">
+                                    <span class="font-mono text-blue-400">22:00-23:00</span>
+                                    <span class="font-bold text-white">Visionary (Neo設計)</span>
                                 </div>
                             </div>
 
-                            <h3 class="text-xl font-bold text-white mb-4">🏆 Next Week's Top 3</h3>
+                            <h3 class="text-xl font-bold text-white mb-4">🏆 来週のTop 3タスク</h3>
                             <div class="space-y-3">
                                 <div class="flex items-center bg-stone-800 rounded px-4 py-2">
                                     <span class="text-amber-500 font-bold mr-3">1</span>
@@ -270,28 +237,23 @@
                         </div>
                     </div>
                     <div class="flex justify-between">
-                        <button onclick="prevStep()" class="text-stone-500 font-medium hover:text-stone-900">← Back</button>
+                        <button onclick="prevStep()" class="text-stone-500 font-medium hover:text-stone-900">← 戻る</button>
                         <button onclick="generateReport()" class="bg-amber-600 text-white px-8 py-3 rounded-full font-bold hover:bg-amber-700 transition-transform hover:scale-105 shadow-lg flex items-center">
-                            <span class="mr-2">🚀</span> Launch Week
+                            🚀 フライトログ生成
                         </button>
                     </div>
                 </section>
 
                 <!-- STEP 4: EXPORT -->
                 <section id="step-4" class="step-section hidden fade-in">
-                    <div class="bg-white rounded-2xl shadow-sm border border-stone-200 p-8">
-                        <div class="flex justify-between items-center mb-6">
-                            <h2 class="text-2xl font-bold text-stone-800">📄 Flight Log Generated</h2>
-                            <button onclick="copyToClipboard()" class="text-xs bg-stone-100 hover:bg-stone-200 px-4 py-2 rounded border border-stone-300 transition-colors">
-                                Copy Markdown
-                            </button>
+                    <div class="bg-white rounded-2xl shadow-sm border border-stone-200 p-8 text-center">
+                        <h2 class="text-2xl font-bold text-stone-800 mb-6 text-left">📄 Flight Log Generated</h2>
+                        <div class="bg-stone-50 border border-stone-200 rounded-lg p-4 h-96 overflow-y-auto text-left">
+                            <pre id="markdown-output" class="text-xs font-mono text-stone-700 whitespace-pre-wrap"></pre>
                         </div>
-                        <div class="bg-stone-50 border border-stone-200 rounded-lg p-4 overflow-x-auto h-96">
-                            <pre id="markdown-output" class="text-xs font-mono text-stone-700 whitespace-pre-wrap leading-relaxed"></pre>
-                        </div>
-                        <div class="mt-8 text-center">
-                            <p class="text-lg font-medium text-stone-600 italic">"Good flight, Captain Rikki. The rhythm is set."</p>
-                            <button onclick="location.reload()" class="mt-4 text-sm text-stone-400 underline hover:text-stone-600">Start New Session</button>
+                        <div class="mt-8 flex justify-center space-x-4">
+                            <button onclick="copyToClipboard()" class="bg-stone-900 text-white px-6 py-2 rounded-lg font-bold">Copy Log</button>
+                            <button onclick="location.reload()" class="text-stone-400 hover:text-stone-600 underline text-sm">New Session</button>
                         </div>
                     </div>
                 </section>
@@ -301,38 +263,25 @@
     </div>
 
     <script>
-        // --- DATA ---
         const emotions = [
-            { level: 1000, name: "Enlightenment", desc: "悟り・純粋な意識" },
-            { level: 600, name: "Peace", desc: "平和・完全な静寂" },
-            { level: 540, name: "Joy", desc: "喜び・内なる慈悲" },
-            { level: 500, name: "Love", desc: "愛・永続的な幸福" },
-            { level: 450, name: "Passion", desc: "情熱・みなぎる活力", color: '#f59e0b' }, // Amber
-            { level: 400, name: "Reason", desc: "理性・理解" },
-            { level: 350, name: "Acceptance", desc: "受容・調和" },
-            { level: 310, name: "Willingness", desc: "意欲・楽観的" },
-            { level: 250, name: "Neutrality", desc: "中立・安心感" },
-            { level: 200, name: "Courage", desc: "勇気・肯定の始まり" },
-            { level: 193, name: "Optimism", desc: "楽観・期待" },
-            { level: 175, name: "Pride", desc: "プライド・要求" },
-            { level: 150, name: "Anger", desc: "怒り" },
-            { level: 100, name: "Fear", desc: "恐怖・不安" }
-        ];
-
-        const titanPrompts = [
-            "Hey Rikki! 今週のセッションを始めよう。まずはチューニングだ。今の君の周波数はどこにある？",
-            "感謝のエネルギーは最強の燃料だ。小さなことでもいい、心から「ありがとう」と言えることを探してみよう。",
-            "過去を振り返るのは、未来への跳躍のためだ。うまくいった「パターン」を見つけ出し、再現性を高めよう。",
-            "ここがクライマックスだ。焚き火の教室Neoに向けたリズムを刻もう。Top 3はもう見えているかい？",
-            "完璧なセットリストだ。このリズムなら、君の情熱は確実に世界に届く。Have a great flight!"
+            { level: 1000, name: "悟り", en: "Enlightenment", desc: "純粋な意識。完全に開かれた状態。" },
+            { level: 600, name: "平和", en: "Peace", desc: "静寂。内なる平和が全てを満たす。" },
+            { level: 540, name: "喜び", en: "Joy", desc: "心の底からの喜び。慈悲と寛容。" },
+            { level: 500, name: "愛", en: "Love", desc: "無条件の愛。全てを包み込む幸福。" },
+            { level: 450, name: "情熱", en: "Passion", desc: "みなぎる活力。創造的エネルギー。" },
+            { level: 400, name: "知性/理性", en: "Reason", desc: "明晰な理解。情報の統合。" },
+            { level: 350, name: "受容", en: "Acceptance", desc: "調和。あるがままを受け入れる。" },
+            { level: 310, name: "意欲", en: "Willingness", desc: "積極的で楽観的な挑戦。" },
+            { level: 250, name: "中立", en: "Neutrality", desc: "リラックス。執着のない状態。" },
+            { level: 200, name: "勇気", en: "Courage", desc: "肯定の始まり。行動への意欲。" },
+            { level: 193, name: "楽観", en: "Optimism", desc: "期待。なんとかなるという感覚。" },
+            { level: 175, name: "プライド", en: "Pride", desc: "自尊心と要求。" },
+            { level: 150, name: "怒り", en: "Anger", desc: "いらだち。変革へのエネルギー。" },
+            { level: 100, name: "恐怖", en: "Fear", desc: "不安。慎重さのサイン。" }
         ];
 
         let currentState = {
-            emotion: { level: 450, name: "Passion", desc: "情熱・みなぎる活力" },
-            gratitude: [],
-            review: {},
-            identity: "",
-            top3: []
+            emotion: emotions[4] // 450 Passion as default
         };
 
         // --- CHART JS ---
@@ -365,7 +314,7 @@
                     },
                     scales: {
                         x: { display: false },
-                        y: { ticks: { font: { family: "'Noto Sans JP', sans-serif" }, autoSkip: false } }
+                        y: { ticks: { font: { family: "'Noto Sans JP', sans-serif", size: 11 }, autoSkip: false } }
                     },
                     onClick: (evt, activeElements) => {
                         if (activeElements.length > 0) {
@@ -383,82 +332,50 @@
             document.getElementById('selected-emotion-name').textContent = e.name;
             document.getElementById('selected-emotion-val').textContent = e.level;
             document.getElementById('selected-emotion-desc').textContent = e.desc;
-            
-            const display = document.getElementById('emotion-display');
-            display.classList.remove('hidden');
+            document.getElementById('emotion-display').classList.remove('hidden');
         }
 
         // --- NAVIGATION ---
         function navTo(stepIndex) {
-            // Update UI
             document.querySelectorAll('.step-section').forEach(el => el.classList.add('hidden'));
             document.getElementById(`step-${stepIndex}`).classList.remove('hidden');
             
-            // Update Sidebar
             document.querySelectorAll('.nav-btn').forEach((btn, idx) => {
                 if(idx === stepIndex) {
-                    btn.classList.remove('text-stone-500', 'hover:bg-white');
                     btn.classList.add('bg-white', 'shadow-sm', 'text-amber-700', 'border-l-4', 'border-amber-500');
                 } else {
-                    btn.classList.add('text-stone-500', 'hover:bg-white');
                     btn.classList.remove('bg-white', 'shadow-sm', 'text-amber-700', 'border-l-4', 'border-amber-500');
                 }
             });
-
-            // Titan Prompt
-            document.getElementById('titan-msg').textContent = `"${titanPrompts[stepIndex]}"`;
         }
 
         function nextStep() {
-            const current = getCurrentStepIndex();
-            if(current < 4) navTo(current + 1);
+            const sections = ['step-0', 'step-1', 'step-2', 'step-3', 'step-4'];
+            let currentIdx = sections.findIndex(id => !document.getElementById(id).classList.contains('hidden'));
+            if(currentIdx < 4) navTo(currentIdx + 1);
         }
 
         function prevStep() {
-            const current = getCurrentStepIndex();
-            if(current > 0) navTo(current - 1);
-        }
-
-        function getCurrentStepIndex() {
-            let idx = 0;
-            document.querySelectorAll('.step-section').forEach((el, i) => {
-                if(!el.classList.contains('hidden')) idx = i;
-            });
-            return idx;
+            const sections = ['step-0', 'step-1', 'step-2', 'step-3', 'step-4'];
+            let currentIdx = sections.findIndex(id => !document.getElementById(id).classList.contains('hidden'));
+            if(currentIdx > 0) navTo(currentIdx - 1);
         }
 
         // --- EXPORT ---
         function generateReport() {
             const date = new Date().toLocaleDateString('ja-JP');
-            const g1 = document.getElementById('gratitude-1').value;
-            const g2 = document.getElementById('gratitude-2').value;
-            const g3 = document.getElementById('gratitude-3').value;
+            const g = [document.getElementById('gratitude-1').value, document.getElementById('gratitude-2').value, document.getElementById('gratitude-3').value];
             const success = document.getElementById('review-success').value;
             const challenge = document.getElementById('review-challenge').value;
             const identity = document.getElementById('identity-text').value;
-            const t1 = document.getElementById('top-1').value;
-            const t2 = document.getElementById('top-2').value;
-            const t3 = document.getElementById('top-3').value;
+            const top3 = [document.getElementById('top-1').value, document.getElementById('top-2').value, document.getElementById('top-3').value];
 
             let md = `# 🔥 Flight Log: Weekly Review [${date}]\n\n`;
-            md += `## 📡 Tuning\n**Emotion:** ${currentState.emotion.name} (${currentState.emotion.level}) - ${currentState.emotion.desc}\n\n`;
-            
-            md += `## 🙏 Gratitude\n`;
-            md += `1. ${g1 || ''}\n2. ${g2 || ''}\n3. ${g3 || ''}\n\n`;
-
-            md += `## ⏪ Review Jam\n`;
-            md += `### Success Factor\n${success || '-'}\n\n`;
-            md += `### Challenge & Lesson\n${challenge || '-'}\n\n`;
-            md += `### Identity Shift\n${identity || '-'}\n\n`;
-
-            md += `## 🚀 Next Week's Top 3\n`;
-            md += `1. **${t1}**\n2. **${t2}**\n3. **${t3}**\n\n`;
-
-            md += `## 🕰 Daily Rhythm (Takibi Style)\n`;
-            md += `* **05:00-08:00**: Magician (Script Optimization)\n`;
-            md += `* **08:00-09:00**: Warrior (Recording)\n`;
-            md += `* **20:00-22:00**: Craftsman (Editing)\n`;
-            md += `* **22:00-23:00**: Visionary (Neo Design)\n`;
+            md += `## 📡 チューニング\n**感情レベル:** ${currentState.emotion.name} (${currentState.emotion.level})\n> ${currentState.emotion.desc}\n\n`;
+            md += `## 🙏 今週の感謝\n1. ${g[0]}\n2. ${g[1]}\n3. ${g[2]}\n\n`;
+            md += `## ⏪ 内察と学び\n### 成功要因\n${success}\n\n### 課題と改善\n${challenge}\n\n### アイデンティティ\n${identity}\n\n`;
+            md += `## 🚀 来週のTop 3\n1. **${top3[0]}**\n2. **${top3[1]}**\n3. **${top3[2]}**\n\n`;
+            md += `## 🕰 デイリー・リズム\n- 05:00-08:00: スクリプト最適化\n- 08:00-09:00: 音声収録\n- 20:00-22:00: 動画編集\n- 22:00-23:00: Neo設計`;
 
             document.getElementById('markdown-output').textContent = md;
             navTo(4);
@@ -466,18 +383,14 @@
 
         function copyToClipboard() {
             const text = document.getElementById('markdown-output').textContent;
-            navigator.clipboard.writeText(text).then(() => alert('Copied to clipboard!'));
+            navigator.clipboard.writeText(text).then(() => alert('コピー完了！'));
         }
 
-        // --- INIT ---
         window.onload = function() {
             initChart();
-            document.getElementById('current-date').textContent = new Date().toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' });
-            
-            // Pre-select passion as default based on user persona
-            selectEmotion(4); 
+            document.getElementById('current-date').textContent = new Date().toLocaleDateString('ja-JP', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+            selectEmotion(4); // Default to Passion
         };
-
     </script>
 </body>
 </html>
